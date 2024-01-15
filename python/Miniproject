@@ -1,0 +1,81 @@
+Build price tracker using web scraping
+
+
+import requests
+from bs4 import BeautifulSoup
+
+
+products_tracker_list = [
+{
+        "product_url": "https://www.flipkart.com/voltas-2023-model-1-2-ton-3-star-split-inverter-ac-white/p/itm3781c84511003?pid=ACNGPFMWSYZHGESC&lid=LSTACNGPFMWSYZHGESCDFEWDS&marketplace=FLIPKART&fm=neo%2Fmerchandising&iid=M_b3ff7d5a-b2f9-4231-a3b3-b086240a98ae_4_SC831CE8WCD6_MC.ACNGPFMWSYZHGESC&ppt=pp&ppn=pp&ssid=2td8xg1bxs0000001704879769900&otracker=clp_pmu_v2_Air%2BConditioners_1_4.productCard.PMU_V2_Voltas%2B2023%2BModel%2B1.2%2BTon%2B3%2BStar%2BSplit%2BInverter%2BAC%2B%2B-%2BWhite_acnewclp-store_ACNGPFMWSYZHGESC_neo%2Fmerchandising_0&otracker1=clp_pmu_v2_PINNED_neo%2Fmerchandising_Air%2BConditioners_LIST_productCard_cc_1_NA_view-all&cid=ACNGPFMWSYZHGESC",
+        "product_name":"Microven",
+        "target_price" :10000
+},
+{
+    "product_url": "https://www.flipkart.com/ifb-30-l-convection-microwave-oven/p/itmeftrwhzzy5kyv?pid=MRCEFTRWADS3GCK4&lid=LSTMRCEFTRWADS3GCK4QK0J4B&marketplace=FLIPKART&q=microwave+oven&store=j9e%2Fm38%2Fo49&srno=s_1_1&otracker=AS_QueryStore_OrganicAutoSuggest_1_10_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_1_10_na_na_na&fm=neo%2Fmerchandising&iid=en_vx1OlXtV5RgVT2k04nEVYeiEot9YnYNFH7bhS5sJ6qxt4AOOrqAx3wWd_9BMzbpouzuxx1wc5OVHAxRVJ9K2DPUFjCTyOHoHZs-Z5_PS_w0%3D&ppt=clp&ppn=acnewclp-store&ssid=abhm5tyh280000001704960955567&qH=473b4abe03a500c3",
+    "product_name": "Air_conditinor",
+    "target_price" :10000
+
+},
+    {
+    "product_url": "https://www.flipkart.com/hp-230-wireless-keyboard-laptop/p/itma88c7b6e5eb87?pid=ACCG689AHWWGGGFD&lid=LSTACCG689AHWWGGGFDLHTGR3&marketplace=FLIPKART&store=6bo%2Fai3%2F3oe&srno=b_1_8&otracker=dynamic_omu_infinite_IT%2BAccessories_1_1.dealCard.OMU_INFINITE_FM7SOOTCJSU9&fm=neo%2Fmerchandising&iid=en_qjZ5H8s0h_7rxxukIXVYBqxLSW-YaizAJf3RHtxbJBRb36W0RzlDzDXaeQ6VtrH5bGD16XdkBOlnZNNcrktuy4E8waCTrWcncKeK_ydPfoM%3D&ppt=browse&ppn=browse&ssid=2td8xg1bxs0000001704879769900",
+    "product_name": "keyboard",
+    "target_price" :1000
+},
+    {
+     "product_url" : "https://www.flipkart.com/panasonic-convertible-7-in-1-additional-ai-mode-cooling-2023-model-1-5-ton-5-star-split-inverter-4-way-swing-pm-0-1-air-purification-filter-ac-wi-fi-connect-white/p/itm86cc4ea6a661d?pid=ACNGHHH2YUCDY9AZ&lid=LSTACNGHHH2YUCDY9AZ1UBDVJ&marketplace=FLIPKART&store=j9e%2Fabm%2Fc54&srno=b_1_1&otracker=browse&fm=neo%2Fmerchandising&iid=en_YwjNYGjEcCpou-9K5Va_nWtVgSgwk51vzyDo6Hk-MogT2eKAyJA7gs7T-8HkRiXA9gOrULObCNqEytTmu-nQ7w%3D%3D&ppt=pp&ppn=pp&ssid=o8mfglf5ts0000001705051448455",
+      "product_name":"panasonic_AC",
+      "target_price": 45000
+},
+    {
+       "product_url":"https://www.flipkart.com/godrej-6-5-kg-5-star-i-wash-technology-washing-machine-fully-automatic-top-load-grey/p/itmd3cf26a53f78a?pid=WMNGMT8EJHK47WHE&lid=LSTWMNGMT8EJHK47WHETOEX2U&marketplace=FLIPKART&store=j9e%2Fabm%2F8qx&srno=b_1_1&otracker=nmenu_sub_TVs%20%26%20Appliances_0_Fully%20Automatic%20Front%20Load&fm=organic&iid=en_JZTQDm5orIdMIFYfhvTdh5y88rN9MSgr-Rte6_g2uft6TBGfPzrBJs8rWVrEkaH2FRLbmJOtRpjHlX688iFy5g%3D%3D&ppt=pp&ppn=pp&ssid=rro8efw62o0000001705051804607",
+        "product_name":"panasonic_AC",
+        "target_price": 10000
+
+    }
+]
+
+def give_product_price(product_url):
+    headers = {
+        "agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
+    product_details = requests.get(product_url, headers=headers)
+    soup = BeautifulSoup(product_details.content, 'html.parser')
+    product_price = soup.find("div", {"class": "_30jeq3 _16Jk6d"})
+   # print(product_price.string + ':' + product_name)
+    return product_price.string
+
+read_file = open("myfile.txt",'w')
+try:
+    for every_product_url in products_tracker_list:
+        product_price_returned = give_product_price(every_product_url.get("product_url"))
+        my_product = product_price_returned[1:]
+        my_product_new = my_product.replace(',', '')
+        my_product_new = int(my_product_new)
+        print(product_price_returned + ':' + every_product_url.get("product_name"))
+
+        if my_product_new < every_product_url.get("target_price"):
+            print("product is availabel with your price")
+            read_file.write(every_product_url.get("product_name")+':'+ 'available at target price')
+            #read_file.write("hello")
+        else:
+            print("same rate")
+finally:
+    read_file.close()
+
+output:
+C:\Users\User\Helloword\pythonProject1\.venv\Scripts\python.exe C:\Users\User\Helloword\pythonProject1\main.py 
+₹30,999:Microven
+same rate
+₹14,490:Air_conditinor
+same rate
+₹1,349:keyboard
+same rate
+₹44,490:panasonic_AC
+product is availabel with your price
+₹12,990:panasonic_AC
+same rate
+
+Process finished with exit code 0
+
+
