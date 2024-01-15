@@ -1,0 +1,55 @@
+#student details mini project
+def student_maths_result(student_list):
+    topper_in_maths = 0
+    topper_name = ''
+    for student in student_list:
+        if (student.get("maths") > topper_in_maths):
+            topper_in_maths = student.get("maths")
+            topper_name = student.get("name")
+    print(f"highest scored are {topper_in_maths} by {topper_name}")
+def student_science_result(student_list):
+    topper_in_science = 0
+    topper_name = ''
+    for students in student_list:
+        if (students.get("science") > topper_in_science):
+            topper_in_science= students.get("science")
+            topper_names = students.get("name")
+    print(f"highest scored are {topper_in_science} by {topper_names}")
+def student_social_result(student_list):
+    topper_in_social = 0
+    topper_name = ''
+    for students in student_list:
+        if (students.get("social") > topper_in_social):
+            topper_in_social= students.get("social")
+            topper_names = students.get("name")
+    print(f"highest scored are {topper_in_social} by {topper_names}")
+
+student_list1 = {
+    "maths":50,
+    "science":89,
+    "social": 60,
+    "name":"suraj"
+}
+student_list2 = {
+    "maths":67,
+    "science":29,
+    "social": 90,
+    "name" :"chandra"
+}
+student_list3 = {
+    "maths":45,
+    "science":69,
+    "social": 99,
+    "name":"rama"
+}
+Student_lists = [student_list1 , student_list2,student_list3]
+print(Student_lists)
+student_maths_result(Student_lists)
+student_science_result(Student_lists)
+student_social_result(Student_lists)
+
+output:
+[{'maths': 50, 'science': 89, 'social': 60, 'name': 'suraj'}, {'maths': 67, 'science': 29, 'social': 90, 'name': 'chandra'}, {'maths': 45, 'science': 69, 'social': 99, 'name': 'rama'}]
+highest scored are 67 by chandra
+highest scored are 89 by suraj
+highest scored are 99 by rama
