@@ -1,0 +1,19 @@
+list functions in python
+
+Players = ["kholi","dhone","manish","puni","shewag","nehal"]
+#print(Players)
+#Players[2] = "sachin"
+#print(Players[1:3])
+#print(Players.count("puni"))
+#print("puni" in Players)
+#Players.append("uppi")
+#Players.insert(2,"uppi")
+#Players.pop()
+#Players.remove("kholi")
+#print(Players.index("punith"))
+#print("sadhu" in Players)
+#print(Players.reverse())
+#Players.sort()
+Players.reverse()
+print(Players)
+
